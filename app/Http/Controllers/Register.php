@@ -17,7 +17,7 @@ class Register extends Controller
 
     public function store(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
+        $validator = \Validator::make($request->json()->all(), [
             'email' => 'required|max:256',
             'country' => 'required|max:100',
             'trading_platform' => 'required|max:100',
@@ -29,11 +29,13 @@ class Register extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Validation failed', 
+                'message' => 'Validation failed',
+                'request' => $request->json()->all(), 
                 'errors' => $validator->messages()], 400);
         } else {
             $email= $request->email;
-            return response()->json(['message' => $email], 200);
+            $name= $request->first_name;
+            return response()->json(['message'=> 'success', 'email' => $email, 'name' => $name], 200);
         }
     }
 }
