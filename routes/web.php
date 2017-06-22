@@ -26,3 +26,9 @@ Route::get('names/{id}', function($id)
     );
     return array($id => $names[$id]);
 });
+
+Route::resource('account', 'AccountController');
+
+Route::get('/authorize', 'HomeController@showAuthorizationForm');
+
+Route::post('/authorize', 'HomeController@authorizeApp');
