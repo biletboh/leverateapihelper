@@ -22,13 +22,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['prefix' => '/v1'], function() 
+Route::group(['prefix' => '/v1', 'middleware' => 'client_credentials'], function() 
 {
-    Route::middleware('auth:api')->post('/auth/app', 'AuthController@authenticateApp');
-    Route::middleware('auth:api')->post('/auth/user', 'AuthController@authenticateUser');
-    Route::middleware('auth:api')->post('/auth/user/logout', 'AuthController@logoutUser');
+    Route::post('/auth/app', 'AuthController@authenticateApp');
+    Route::post('/auth/user', 'AuthController@authenticateUser');
+    Route::post('/auth/user/logout', 'AuthController@logoutUser');
 
-    Route::middleware('auth.api.app')->get('/application-data', 'ApiHomeController@appData');
-    Route::middleware('auth.api.app')->get('/user-data', 'ApiHomeController@userData');
+    Route::get('/application-data', 'ApiHomeController@appData');
+    Route::get('/user', 'ApiHomeController@userData');
     Route::post('/register', 'Register@store')->name('register');
+    Route::get('/test',function(){
+        return "ok"; 
+    });
 });

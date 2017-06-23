@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
 class Application extends Model
 {
     //
+    use HasApiTokens, Notifiable;
+
     public function generateAuthToken()
     {
         $jwt = \Firebase\JWT::encode([

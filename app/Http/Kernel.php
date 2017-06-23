@@ -50,6 +50,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'client_credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
         'auth.api.app' => \App\Http\Middleware\ApiAppAuth::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
